@@ -10,7 +10,8 @@
 <link rel="import" href="../bower_components/font-roboto/roboto.html">
 <link rel="import" href="meteor-status.html">
 <link rel="stylesheet" type="text/css" href="hero-target.css">
-<script src='router.js'></script>
+
+<script src='../components/router.js'></script>
 
 <polymer-element name="polymeteor-app">
 
@@ -63,9 +64,67 @@
           height: 100%;
         }
       }
+      a{
+        text-decoration: none;
+      }
       ul{
         padding: 0;
         list-style-type: none;
+      }
+      .directory li{
+        font-size: 16px;
+        height: 100px;
+        width: 100%;
+        border-bottom: 2px solid grey;
+      }
+      .directory a div{
+        color: black;
+      }
+      .user-avatar{
+        height: 100px;
+        width: 100px;
+        margin: 10 auto 10 auto;
+        border-radius: 50%;
+        background-image: url('../ww.jpg');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+      }
+      .user-name{
+        padding-top: 15px;
+        width: 80%;
+        height: 50%;
+        width: 80%;
+        float: left;
+      }
+      .user-company{
+        height: 40%;
+        padding-top: 15px;
+        width: 80%;
+        float: left;
+      }
+      .avatar{
+        background-image: url('../ww.jpg');
+        width: 15%;
+        height: 100%;
+        float: left;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        margin-right: 5%;
+      }
+      .name{
+        height: 40%;
+        padding-top: 15px;
+        width: 80%;
+        float: left;
+      }
+      .company{
+        padding-top: 15px;
+        width: 80%;
+        height: 50%;
+        width: 80%;
+        float: left;
       }
       .content{
         position: absolute;
@@ -88,11 +147,11 @@
         <core-toolbar>
           <span>Single Page Polymer</span>
         </core-toolbar>
-        <core-menu valueattr="hash" selected="{{route}}" selectedModel="{{selectedPage}}"
+        <core-menu valueattr="hash" selected="{{router}}" selectedModel="{{selectedPage}}"
                    on-core-select="{{menuItemSelected}}">
           <template repeat="{{page, i in pages}}">
             <paper-item hash="{{page.hash}}" noink>
-              <core-icon icon="label{{route != page.hash ? '-outline' : ''}}"></core-icon>
+              <core-icon icon="label{{router != page.hash ? '-outline' : ''}}"></core-icon>
               <a href="#{{page.hash}}">{{page.name}}</a>
             </paper-item>
           </template>
@@ -102,8 +161,8 @@
         <div flex>{{selectedPage.page.name}}</div>
         <core-item icon="{{status.connected ? 'cloud-done' : 'cloud-off'}}" label="{{status.status}}"></core-item>
       </core-toolbar>
-      <div layout horizontal center-center fit>
-        <core-animated-pages id="pages" selected="{{route}}" valueattr="hash"
+      <div layout horizontal center-center fit selectedItem="selectedItem">
+       <!--   <core-animated-pages id="pages" selected="{{router}}" valueattr="hash"
                              transitions="cross-fade-all hero-transition"
                              on-tap="{{cyclePages}}">
           <template repeat="{{page, i in pages}}">
@@ -122,6 +181,27 @@
             </section>
           </template>
         </core-animated-pages>
+      </div>-->
+        <core-animated-pages selected="{{router}}" valueattr="hash"
+                                                   transitions="hero-transition">
+          <section hash='directory'>
+            <ul class='directory'>
+              <li>
+                <a href="#user">
+                  <div hero-id='avatar' class='avatar' hero></div>
+                  <div hero-id='name' class='name' hero>Willy Wonka</div>
+                  <div hero-id='company' class='company' hero>Chocolate Factory</div>
+                </a>
+              </li>
+            </ul>
+          </section>
+          <section hash='user'>
+            <div hero-id='avatar' class='user-avatar' hero></div>
+            <div hero-id='name' class='user-name' hero>Willy Wonka</div>
+            <div hero-id='company' class='user-company' hero>Chocolate Factory</div>
+            <a href='#directory'>directory</a>
+          </section>
+       </core-animated-pages>
       </div>
     </core-scaffold>
   </template>
